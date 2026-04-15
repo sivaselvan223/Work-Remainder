@@ -139,8 +139,8 @@ work-reminder/
 ### 1. Clone the repository
 
 ```bash
-git clone https://github.com/sivaselvan223/Work-Reminder.git
-cd Work-Reminder
+git clone https://github.com/sivaselvan223/Activity-checker.git
+cd Activity-checker
 ```
 
 ### 2. Setup the Server
