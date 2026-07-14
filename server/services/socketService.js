@@ -5,9 +5,16 @@ let io = null;
 const initSocket = (server) => {
   const { Server } = require('socket.io');
   
+  const allowedOrigins = process.env.CORS_ORIGIN
+    ? process.env.CORS_ORIGIN.split(',')
+    : ['http://localhost:5173', 'http://localhost:3000'];
+  if (!allowedOrigins.includes('https://work-remainder.vercel.app')) {
+    allowedOrigins.push('https://work-remainder.vercel.app');
+  }
+
   io = new Server(server, {
     cors: {
-      origin: ['http://localhost:5173', 'http://localhost:3000'],
+      origin: allowedOrigins,
       methods: ['GET', 'POST']
     }
   });

@@ -3,6 +3,8 @@ import { io } from 'socket.io-client';
 import { useAuth } from '../context/AuthContext';
 import { showNotification } from '../utils/notifications';
 
+const SOCKET_URL = import.meta.env.VITE_SERVER_URL || 'http://localhost:5000';
+
 export const useSocket = (onTaskEvent) => {
   const { token, isAuthenticated } = useAuth();
   const socketRef = useRef(null);
@@ -12,7 +14,7 @@ export const useSocket = (onTaskEvent) => {
 
     if (socketRef.current?.connected) return;
 
-    socketRef.current = io('http://localhost:5000', {
+    socketRef.current = io(SOCKET_URL, {
       auth: { token }
     });
 

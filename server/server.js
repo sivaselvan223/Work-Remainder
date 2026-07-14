@@ -11,8 +11,15 @@ const app = express();
 const server = http.createServer(app);
 
 // Middleware
+const allowedOrigins = process.env.CORS_ORIGIN
+  ? process.env.CORS_ORIGIN.split(',')
+  : ['http://localhost:5173', 'http://localhost:3000'];
+// Always allow the Vercel deployment
+if (!allowedOrigins.includes('https://work-remainder.vercel.app')) {
+  allowedOrigins.push('https://work-remainder.vercel.app');
+}
 app.use(cors({
-  origin: ['http://localhost:5173', 'http://localhost:3000'],
+  origin: allowedOrigins,
   credentials: true
 }));
 app.use(express.json());
