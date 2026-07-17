@@ -1,4 +1,9 @@
-require('dotenv').config();
+require("dotenv").config();
+
+if (!process.env.MONGODB_URI && process.env.MONGO_URI) {
+  process.env.MONGODB_URI = process.env.MONGO_URI;
+}
+
 const express = require('express');
 const http = require('http');
 const cors = require('cors');
@@ -34,7 +39,8 @@ app.get('/api/health', (req, res) => {
 });
 
 // Initialize services and start server
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT || 8080;
+const HOST = process.env.HOST || '0.0.0.0';
 
 const start = async () => {
   try {
@@ -52,8 +58,8 @@ const start = async () => {
     startScheduler();
 
     // Start server
-    server.listen(PORT, () => {
-      console.log(`\n🚀 Server running on http://localhost:${PORT}`);
+    server.listen(PORT, HOST, () => {
+      console.log(`\n🚀 Server running on http://${HOST}:${PORT}`);
       console.log(`📡 Socket.io listening`);
       console.log(`⏰ Scheduler active\n`);
     });
